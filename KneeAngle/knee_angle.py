@@ -8,8 +8,10 @@ import numpy as np
 import math
 
 points = []
+angles = []
 
 def calculate_angle(p1, p2, p3):
+    global angles
     v1 = np.array(p1) - np.array(p2)
     v2 = np.array(p3) - np.array(p2)
 
@@ -20,6 +22,8 @@ def calculate_angle(p1, p2, p3):
     angle_deg = np.degrees(angle_rad)
 
     joint_deg = 180 - angle_deg
+    angles.append(joint_deg)
+
     return joint_deg
 
 def click_event(event, x, y, flags, param):
@@ -35,9 +39,13 @@ def click_event(event, x, y, flags, param):
             cv2.putText(img, f"{angle:.2f} deg", points[1], 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
             points= []
+            mean_angle = np.mean(np.array(angles))
+            print(f"Mean Angle over {len(angles) * 3} points: {mean_angle}")
+            #cv2.putText(img, f"Mean Angle over {len(angles) * 3} points: {mean_angle}", (1,84), 
+            #            cv2.FONT_HERSHEY_SIMPLEX, 4, (255, 0, 0), 4)
         cv2.imshow("Image", img)
 
-img = cv2.imread("path/to/your/image.jpg")  
+img = cv2.imread("/Users/felixfautsch/Desktop/IMG_5515.JPG")  
 cv2.imshow("Image", img)
 cv2.setMouseCallback("Image", click_event)
 cv2.waitKey(0)
