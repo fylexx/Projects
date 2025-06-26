@@ -37,7 +37,7 @@ def click_event(event, x, y, flags, param):
             points= []
         cv2.imshow("Image", img)
 
-img = cv2.imread("/Users/felixfautsch/Desktop/IMG_5515.JPG")  
+img = cv2.imread("path/to/your/image.jpg")  
 cv2.imshow("Image", img)
 cv2.setMouseCallback("Image", click_event)
 cv2.waitKey(0)
