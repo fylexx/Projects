@@ -45,7 +45,7 @@ def click_event(event, x, y, flags, param):
             #            cv2.FONT_HERSHEY_SIMPLEX, 4, (255, 0, 0), 4)
         cv2.imshow("Image", img)
 
-img = cv2.imread("/Users/felixfautsch/Desktop/IMG_5515.JPG")  
+img = cv2.imread("/path/to/your/image")  
 cv2.imshow("Image", img)
 cv2.setMouseCallback("Image", click_event)
 cv2.waitKey(0)
