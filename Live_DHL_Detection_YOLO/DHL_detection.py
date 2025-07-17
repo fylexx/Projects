@@ -43,6 +43,9 @@ while True:
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.putText(frame, cls_name, (x1, y1 - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+            if result.boxes:  
+                filename = f"detection_{timestamp.replace(':', '-')}.jpg"
+                cv2.imwrite(filename, frame)
 
     cv2.imshow("YOLO Live Detection", frame)
 
