@@ -7,7 +7,7 @@ from datetime import datetime
 '''
 Loading the finetuned model and creating log file
 '''
-model = YOLO('/Users/felixfautsch/VS_Python/personal_projects/dhl_model.pt')
+model = YOLO('path/to/your/dhl_model.pt')
 log_file = open("dhl_detections_log.txt", "a")
 
 
