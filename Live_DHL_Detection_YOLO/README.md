@@ -1,4 +1,4 @@
-# Live Detection of DHL Cars using finetuned YOLOv11 on a custom dataset and Pushover
+# Live Detection of DHL Cars using finetuned YOLOv11 on a custom dataset using Pushover API for Real-Time Notifications
 ### Crux
 During my Rehab, I had the problem that whenever a DHL Driver knocked at my door, I was too slow to get up and open the door for them. This meant that I could never take reception of my packages on time. To overcome this crux, I was wondering if I could be informed about the arrival of a DHL Truck, way before they knock at my door. 
 ### Solution
