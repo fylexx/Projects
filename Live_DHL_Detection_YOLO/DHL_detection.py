@@ -38,7 +38,6 @@ PUSHOVER_API_TOKEN = os.getenv("PUSHOVER_API_TOKEN")
 '''
 Live Detection of DHL Cars
 '''
-#cap = cv2.VideoCapture("/Users/felixfautsch/Downloads/IMG_1908.JPG")
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: Could not open webcam.")
