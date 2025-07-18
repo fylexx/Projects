@@ -2,18 +2,43 @@ from ultralytics import YOLO
 import cv2
 import time
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+import requests
+
+'''
+Function for sending a Notifivation to my phone everytime a detection has been made
+'''
+def send_pushover_notification(user_key, app_token, message, image_path):
+    with open(image_path, "rb") as image_file:
+        response = requests.post(
+            "https://api.pushover.net/1/messages.json",
+            data={
+                "token": app_token,
+                "user": user_key,
+                "message": message,
+            },
+            files={
+                "attachment": image_file
+            }
+        )
+    return response.status_code == 200
 
 
 '''
-Loading the finetuned model and creating log file
+Loading the finetuned model, creating log file and accessing API Keys
 '''
 model = YOLO('path/to/your/dhl_model.pt')
 log_file = open("dhl_detections_log.txt", "a")
+load_dotenv()
+PUSHOVER_USER_KEY = os.getenv("PUSHOVER_USER_KEY")
+PUSHOVER_API_TOKEN = os.getenv("PUSHOVER_API_TOKEN")
 
 
 '''
 Live Detection of DHL Cars
 '''
+#cap = cv2.VideoCapture("/Users/felixfautsch/Downloads/IMG_1908.JPG")
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: Could not open webcam.")
@@ -46,6 +71,18 @@ while True:
             if result.boxes:  
                 filename = f"detection_{timestamp.replace(':', '-')}.jpg"
                 cv2.imwrite(filename, frame)
+
+                success = send_pushover_notification(
+                    user_key=PUSHOVER_USER_KEY,
+                    app_token=PUSHOVER_API_TOKEN,
+                    message=f"Detected: {cls_name} at {timestamp}",
+                    image_path=filename
+                )
+
+                if success:
+                    print("Pushover notification sent.")
+                else:
+                    print("Failed to send Pushover notification.")
 
     cv2.imshow("YOLO Live Detection", frame)
 
